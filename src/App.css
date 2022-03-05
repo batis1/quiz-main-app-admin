@@ -58,7 +58,9 @@ body {
   background-color: var(--darkAccent);
   color: var(--lightAccent);
 }
-
+body {
+  zoom: 0.8;
+}
 /*Global styles*/
 .ant-btn-primary {
   background: var(--greyAccent);

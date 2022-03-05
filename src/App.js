@@ -42,7 +42,7 @@ function App() {
             <Sidebar theme={theme} setTheme={setTheme} />
             <Switch>
               <Route exact path="/">
-                <Home />
+                <UserList />
               </Route>
               <Route path="/users">
                 <UserList />
