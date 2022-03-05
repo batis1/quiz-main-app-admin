@@ -1,0 +1,126 @@
+.sidebar {
+  /* flex: 1; */
+  height: calc(100vh - 50px);
+  background-color: var(--darkAccent);
+  /* position: sticky; */
+  /* top: 50px; */
+}
+
+.sidebarWrapper {
+  padding: 20px;
+  color: var(--lightAccent);
+}
+
+.sidebarMenu {
+  margin-bottom: 10px;
+}
+
+.sidebarTitle {
+  font-size: 13px;
+  color: var(--lightAccent);
+}
+
+.sidebarList {
+  list-style: none;
+  padding: 5px;
+  margin-top: 1.99rem;
+}
+
+.sidebarListItem {
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 1.3rem;
+}
+
+.sidebarListItem.active,
+.sidebarListItem:hover {
+  background-color: var(--lightAccent);
+  color: var(--darkerOrange);
+}
+
+.sidebarIcon {
+  margin-right: 5px;
+  font-size: 20px !important;
+}
+
+.sidebar-button {
+  position: fixed;
+  text-align: right;
+  right: 1em;
+  top: 2em;
+  z-index: 10;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.menuNav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 0;
+  overflow: hidden;
+  z-index: 9;
+  background-color: var(--darkerGrey);
+  transition: width 400ms cubic-bezier(0.175, 0.885, 0.32, 1.475);
+}
+
+.menuNav.showMenu {
+  width: 100%;
+}
+
+.menuNav a:first-child {
+  margin-top: 5em;
+}
+/* .switch-theme-toggle {
+  color: var(--darkerOrange);
+} */
+@media (min-width: 390px) {
+  .sidebar-button {
+    right: 3em;
+    top: 3.5em;
+  }
+
+  .navbar-icon {
+    font-size: 1.8rem;
+    margin-bottom: 50px;
+    margin-top: 30px;
+    color: var(--lightAccent);
+  }
+  .topRight {
+    margin-right: 10px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .sidebar-button {
+    display: none;
+  }
+
+  .menuNav {
+    position: relative;
+    height: auto;
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    justify-content: flex-end;
+    background-color: inherit;
+  }
+
+  .navbar-icon {
+    font-size: 2.2rem;
+    color: var(--lightAccent);
+  }
+  .menuNav a:first-child {
+    margin-top: 0;
+  }
+}
