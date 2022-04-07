@@ -11,15 +11,15 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useParams } from "react-router-dom";
 import Loading from "./Loading/Loading";
 
-export default function WordList() {
-  const [words, setWords] = useState([]);
-  const handleDelete = async (id) => {
-    setWords(words.filter((item) => item._id !== id));
-    await callAxios("delete", `words/${id}`);
-  };
+export default function ScoreList() {
+  const [scores, setScores] = useState([]);
+  //   const handleDelete = async (id) => {
+  //     setScores(scores.filter((item) => item._id !== id));
+  //     await callAxios("delete", `words/${id}`);
+  //   };
   const [isLoading, setIsLoading] = useState(false);
 
-  const { lessonId } = useParams();
+  const { userId } = useParams();
   const setFunctionCallBack = ({ docs }) =>
     docs.map((doc, index) => ({
       ...doc,
@@ -29,8 +29,8 @@ export default function WordList() {
 
   useAxios(
     "get",
-    `words?lessonId=${lessonId}`,
-    setWords,
+    `score/${userId}?isAdmin=true`,
+    setScores,
     setFunctionCallBack,
     null,
     setIsLoading
@@ -41,44 +41,51 @@ export default function WordList() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "character",
-      headerName: "Character",
-      width: 150,
-    },
-    { field: "pinyin", headerName: "Pinyin", width: 150 },
-    {
-      field: "englishTranslation",
-      headerName: "English",
+      field: "username",
+      headerName: "Username",
       width: 150,
     },
     {
-      field: "sentence",
-      headerName: "Sentence",
-      width: 140,
-    },
-
-    {
-      field: "action",
-      headerName: "Action",
+      field: "score",
+      headerName: "Score",
       width: 150,
+      renderCell: (params) => (
+        <div>{params.row.score ? params.row.score : 0}</div>
+      ),
+    },
+    {
+      field: "date",
+      headerName: "Date",
+      width: 200,
       renderCell: (params) => {
-        return (
-          <>
-            <Link to={"/word/" + params.row._id}>
-              <button className="productListEdit">Edit</button>
-            </Link>
+        // debugger;
 
-            <DeleteOutline
-              className="productListDelete"
-              onClick={() => handleDelete(params.row._id)}
-            />
-            {/* <Link to={"/newproduct/"}>
-              <button className="productListCreate">Create</button>
-            </Link> */}
-          </>
-        );
+        return <div>{`${new Date(params.row.date).toLocaleString()}`}</div>;
       },
     },
+
+    // {
+    //   field: "action",
+    //   headerName: "Action",
+    //   width: 150,
+    //   renderCell: (params) => {
+    //     return (
+    //       <>
+    //         {/* <Link to={"/word/" + params.row._id}>
+    //           <button className="productListEdit">Edit</button>
+    //         </Link> */}
+
+    //         {/* <DeleteOutline
+    //           className="productListDelete"
+    //           onClick={() => handleDelete(params.row._id)}
+    //         /> */}
+    //         {/* <Link to={"/newproduct/"}>
+    //           <button className="productListCreate">Create</button>
+    //         </Link> */}
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   return isLoading ? (
@@ -98,14 +105,14 @@ export default function WordList() {
     <div className="productList">
       <div className="question-add">
         {/* <h3>Questions</h3> */}
-        <Link to={`/newWord/${lessonId}`}>
+        {/* <Link to={`/newWord/${userId}`}>
           <Button className="btn homebtn getstarted">CREATE</Button>
-        </Link>
+        </Link> */}
       </div>
       <div className="data-grid-container">
         <DataGrid
           className="data-grid-table"
-          rows={words}
+          rows={scores}
           disableSelectionOnClick
           columns={columns}
           pageSize={8}

@@ -1,10 +1,11 @@
 import "./newQuestion.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import AppUpload from "../../upload/AppUpload";
-import { useAxios } from "../../hooks/axiosUtils";
+import { checkForEmptyInput, useAxios } from "../../hooks/axiosUtils";
 import apiList from "../../lib/apiList";
-
+import { SetPopupContext } from "../../App";
+import { Select } from "antd";
 export default function NewQuestion({ update }) {
   const categoryQuestionType = {
     Reading: ["Multiple 4"],
@@ -17,7 +18,7 @@ export default function NewQuestion({ update }) {
   const [input, setInput] = useState({
     category: "Reading",
     type: "Multiple 4",
-    difficulty: "easy",
+    difficulty: "Easy",
     level: "select level",
     popupDescription: { pinyin: "", translation: "" },
   });
@@ -34,8 +35,30 @@ export default function NewQuestion({ update }) {
     });
   };
 
+  const setPopup = useContext(SetPopupContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const [invalid, invalidParams] = checkForEmptyInput(input, [
+      "category",
+      "type",
+      "difficulty",
+      "level",
+      "question",
+      "correct_answer",
+    ]);
+
+    if (invalid) {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: `${invalidParams.join(", ")} ${
+          invalidParams.length > 1 ? "are" : "is"
+        } required`,
+      });
+
+      return;
+    }
     console.log("here");
     try {
       const { data } = await axios.post(apiList.questions, {
@@ -47,15 +70,27 @@ export default function NewQuestion({ update }) {
         // category: "Reading",
         // type: "Multiple 4",
         ...currentData,
-        difficulty: "easy",
+        difficulty: "Easy",
         question: "",
         level: "select level",
         correct_answer: "",
         audioDescription: "",
         popupDescription: { pinyin: "", translation: "" },
       }));
+      setPopup({
+        open: true,
+        severity: "success",
+        message: `question created successfully`,
+      });
+
       setInCorrect(["", "", ""]);
     } catch (error) {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: `there were an error while creating the question`,
+      });
+
       console.log(error);
     }
   };
@@ -67,7 +102,7 @@ export default function NewQuestion({ update }) {
   );
 
   return (
-    <div className="newProduct">
+    <div className="newQuestion">
       <h1 className="addProductTitle">New Question</h1>
       {category === "Writing" ? (
         <form className="addProductForm">
@@ -224,11 +259,12 @@ export default function NewQuestion({ update }) {
                 <select
                   name="inStock"
                   id="idStock"
-                  value={input.difficulty}
+                  value={input.correct_answer}
                   onChange={(e) =>
-                    setInput({ ...input, difficulty: e.target.value })
+                    setInput({ ...input, correct_answer: e.target.value })
                   }
                 >
+                  <option value="">select correct answer</option>
                   <option value="true">true</option>
                   <option value="false">false</option>
                 </select>
@@ -338,8 +374,8 @@ export default function NewQuestion({ update }) {
           <AppUpload setInput={setInput} input={input} />
         </>
       )}
-      <button className="productButton" onClick={handleSubmit}>
-        Create here
+      <button className="userCreateButton" onClick={handleSubmit}>
+        CREATE
       </button>
     </div>
   );

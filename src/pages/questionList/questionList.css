@@ -83,6 +83,7 @@
   height: 40px;
   padding: 0 0 2rem 2rem;
 }
+
 .MuiDataGrid-root .MuiDataGrid-cell {
   display: block;
   overflow: hidden;
@@ -91,6 +92,7 @@
   text-overflow: ellipsis;
   color: var(--lightAccent);
 }
+
 .MuiDataGrid-root .MuiDataGrid-columnHeaderWrapper {
   width: 100%;
   display: flex;

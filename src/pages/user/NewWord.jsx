@@ -12,7 +12,8 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { SetPopupContext } from "../../App";
 import Loading from "../../components/Loading/Loading";
 import { callAxios, useAxios } from "../../hooks/axiosUtils";
-import "./user.css";
+// import "./user.css";
+import { UserContainer } from "./userSC";
 
 export default function NewWord() {
   const [word, setWord] = useState({});
@@ -47,74 +48,82 @@ export default function NewWord() {
   //     </div>
   //   ) : (
   return (
-    <div className="user">
-      {/* <div className="userTitleContainer">
+    <UserContainer>
+      <div className="user">
+        {/* <div className="userTitleContainer">
         <h1 className="userTitle">Edit Word</h1>
         <Link to="/newWord">
           <button className="userAddButton">Create</button>
         </Link>
       </div> */}
-      <div className="userContainer">
-        <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
-          <form className="userUpdateForm">
-            <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Character</label>
-                <input
-                  type="text"
-                  placeholder="annabeck99@gmail.com"
-                  value={character}
-                  className="userUpdateInput"
-                  onChange={(e) =>
-                    setWord((data) => ({ ...data, character: e.target.value }))
-                  }
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Pinyin</label>
-                <input
-                  value={pinyin}
-                  onChange={(e) =>
-                    setWord((data) => ({ ...data, pinyin: e.target.value }))
-                  }
-                  placeholder="annabeck99@gmail.com"
-                  type="text"
-                  placeholder="Anna Becker"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>English</label>
-                <input
-                  type="text"
-                  placeholder="annabeck99@gmail.com"
-                  className="userUpdateInput"
-                  value={englishTranslation}
-                  onChange={(e) =>
-                    setWord((data) => ({
-                      ...data,
-                      englishTranslation: e.target.value,
-                    }))
-                  }
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Sentence</label>
-                <input
-                  value={sentence}
-                  onChange={(e) =>
-                    setWord((data) => ({
-                      ...data,
-                      sentence: e.target.value,
-                    }))
-                  }
-                  type="text"
-                  placeholder="+1 123 456 67"
-                  className="userUpdateInput"
-                />
-              </div>
-              {/* <div className="userUpdateItem">
+        <div className="userContainer">
+          <div className="wordCreate">
+            <span className="userUpdateTitle">Edit</span>
+            <form className="userUpdateForm">
+              <div className="userUpdateLeft">
+                <div className="userUpdateItem">
+                  <label>Characters</label>
+                  <input
+                    type="text"
+                    placeholder="Please enter Characters"
+                    value={character}
+                    // className="userUpdateInput"
+                    className="form-input"
+                    onChange={(e) =>
+                      setWord((data) => ({
+                        ...data,
+                        character: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="userUpdateItem">
+                  <label>Pinyin</label>
+                  <input
+                    value={pinyin}
+                    onChange={(e) =>
+                      setWord((data) => ({ ...data, pinyin: e.target.value }))
+                    }
+                    placeholder="Please enter pinyin"
+                    type="text"
+                    // placeholder="Anna Becker"
+                    // className="userUpdateInput"
+                    className="form-input"
+                  />
+                </div>
+                <div className="userUpdateItem">
+                  <label>English</label>
+                  <input
+                    type="text"
+                    placeholder="Please enter the translation"
+                    // className="userUpdateInput"
+                    className="form-input"
+                    value={englishTranslation}
+                    onChange={(e) =>
+                      setWord((data) => ({
+                        ...data,
+                        englishTranslation: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="userUpdateItem">
+                  <label>Sentence</label>
+                  <input
+                    value={sentence}
+                    onChange={(e) =>
+                      setWord((data) => ({
+                        ...data,
+                        sentence: e.target.value,
+                      }))
+                    }
+                    type="text"
+                    placeholder="Please enter a sentence"
+                    // className="userUpdateInput"
+                    className="form-input"
+                  />
+                </div>
+                {/* <div className="userUpdateItem">
                   <label>Address</label>
                   <input
                     type="text"
@@ -122,9 +131,9 @@ export default function NewWord() {
                     className="userUpdateInput"
                   />
                 </div> */}
-            </div>
-            <div className="userUpdateRight">
-              {/* <div className="userUpdateUpload">
+              </div>
+              <div className="userUpdateRight">
+                {/* <div className="userUpdateUpload">
                 <img
                   className="userUpdateImg"
                   src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
@@ -135,14 +144,15 @@ export default function NewWord() {
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </div> */}
-            </div>
-          </form>
-          <button className="userUpdateButton" onClick={handleCreate}>
-            Create
-          </button>
+              </div>
+            </form>
+            <button className="wordCreateButton" onClick={handleCreate}>
+              Create
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </UserContainer>
   );
   //   );
 }

@@ -18,7 +18,9 @@ import {
   useAxios,
   handleAxiosError,
 } from "../../hooks/axiosUtils";
-import "./user.css";
+// import "./user.css";
+import { UserContainer } from "./userSC";
+import { Form, Input, Space, Button } from "antd";
 
 export default function Lesson() {
   const [lesson, setLesson] = useState({});
@@ -106,48 +108,51 @@ export default function Lesson() {
       <Loading />
     </div>
   ) : (
-    <div className="user">
-      <div className="userTitleContainer">
-        <h1 className="userTitle">Edit Word</h1>
-        <Link to="/newLesson">
-          <button className="userAddButton">Create</button>
-        </Link>
-      </div>
-      <div className="userContainer">
-        <div className="userShow">
-          <div className="userShowTop">
-            <img
-              src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-              className="userShowImg"
-            />
-            <div className="userShowTopTitle">
-              {/* <span className="userShowUsername">{username}</span> */}
-              <span className="userShowUserTitle">Software Engineer</span>
+    <UserContainer>
+      <div className="user">
+        <div className="userTitleContainer">
+          <h1 className="userTitle">Edit Lesson</h1>
+          {/* <Link to="/newLesson">
+            <button className="userAddButton">Create</button>
+          </Link> */}
+        </div>
+        <div className="userContainer">
+          <div className="userShow">
+            <div className="userShowTop">
+              {/* <img
+                src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                alt=""
+                className="userShowImg"
+              /> */}
+              <div className="userShowTopTitle">
+                {/* <span className="userShowUsername">{username}</span> */}
+                {/* <span className="userShowUserTitle">Software Engineer</span> */}
+              </div>
             </div>
-          </div>
-          <div className="userShowBottom">
-            <span className="userShowTitle">Account Details</span>
-            <div className="userShowInfo">
-              <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">{title}</span>
-            </div>
-            <div className="userShowInfo">
-              <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">{iconName}</span>
-            </div>
+            <div className="userShowBottom">
+              <span className="userShowTitle">Lesson Details</span>
+              <div className="userShowInfo">
+                <PermIdentity className="userShowIcon" />
+                <span className="userShowInfoTitle">{title}</span>
+              </div>
+              <div className="userShowInfo">
+                <CalendarToday className="userShowIcon" />
+                <span className="userShowInfoTitle">
+                  {iconName} grammar url
+                </span>
+              </div>
 
-            {/* <div className="userShowInfo">
+              {/* <div className="userShowInfo">
               <CalendarToday className="userShowIcon" />
               <span className="userShowInfoTitle">{englishTranslation}</span>
             </div> */}
 
-            {/* <span className="userShowTitle">{englishTranslation}</span> */}
-            {/* <div className="userShowInfo">
+              {/* <span className="userShowTitle">{englishTranslation}</span> */}
+              {/* <div className="userShowInfo">
               <PhoneAndroid className="userShowIcon" />
               <span className="userShowInfoTitle">{sentence}</span>
             </div> */}
-            {/* <div className="userShowInfo">
+              {/* <div className="userShowInfo">
                 <MailOutline className="userShowIcon" />
                 <span className="userShowInfoTitle">{sentence}</span>
               </div>
@@ -155,32 +160,36 @@ export default function Lesson() {
                 <LocationSearching className="userShowIcon" />
                 <span className="userShowInfoTitle">New York | USA</span>
               </div> */}
+            </div>
           </div>
-        </div>
-        <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
-          <div className="userUpdateForm">
-            <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Title</label>
-                <input
-                  type="text"
-                  value={title}
-                  className="userUpdateInput"
-                  onChange={(e) =>
-                    setLesson((data) => ({
-                      ...data,
-                      title: e.target.value,
-                    }))
-                  }
-                />
-              </div>
+          <div className="userUpdate">
+            <span className="userUpdateTitle">Edit</span>
+            <div className="userUpdateForm">
+              <div className="userUpdateLeft">
+                <div className="userUpdateItem">
+                  <label>Title</label>
+                  <Input
+                    type="text"
+                    value={title}
+                    className="form-input"
+                    onChange={(e) =>
+                      setLesson((data) => ({
+                        ...data,
+                        title: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
 
-              <div className="userUpdateItem">
-                <label>grammars</label>
-                <InputArray array={grammars} setArray={setGrammars} />
-              </div>
-              {/* <div className="userUpdateItem">
+                <div className="userUpdateItem">
+                  <label>Grammar</label>
+                  <InputArray
+                    // className="grammarUrl"
+                    array={grammars}
+                    setArray={setGrammars}
+                  />
+                </div>
+                {/* <div className="userUpdateItem">
                 <label>English</label>
                 <input
                   type="text"
@@ -195,7 +204,7 @@ export default function Lesson() {
                   }
                 />
               </div> */}
-              {/* <div className="userUpdateItem">
+                {/* <div className="userUpdateItem">
                 <label>Sentence</label>
                 <input
                   value={sentence}
@@ -210,7 +219,7 @@ export default function Lesson() {
                   className="userUpdateInput"
                 />
               </div> */}
-              {/* <div className="userUpdateItem">
+                {/* <div className="userUpdateItem">
                   <label>Address</label>
                   <input
                     type="text"
@@ -218,26 +227,27 @@ export default function Lesson() {
                     className="userUpdateInput"
                   />
                 </div> */}
-            </div>
-            <div className="userUpdateRight">
-              <div className="userUpdateUpload">
-                <img
-                  className="userUpdateImg"
-                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                  alt=""
-                />
-                <label htmlFor="file">
-                  <Publish className="userUpdateIcon" />
-                </label>
-                <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="userUpdateButton" onClick={handleUpdate}>
-                Update
-              </button>
+              <div className="userUpdateRight">
+                {/* <div className="userUpdateUpload">
+                  <img
+                    className="userUpdateImg"
+                    src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                    alt=""
+                  />
+                  <label htmlFor="file">
+                    <Publish className="userUpdateIcon" />
+                  </label>
+                  <input type="file" id="file" style={{ display: "none" }} />
+                </div> */}
+                <Button className="userUpdateButton" onClick={handleUpdate}>
+                  Update
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </UserContainer>
   );
 }

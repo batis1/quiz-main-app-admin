@@ -18,7 +18,10 @@ import {
   handleAxiosError,
   useAxios,
 } from "../../hooks/axiosUtils";
-import "./user.css";
+import { Form, Input, Space, Button } from "antd";
+
+// import "./user.css";
+import { UserContainer } from "./userSC";
 
 export default function NewLesson() {
   const [lesson, setLesson] = useState({});
@@ -99,38 +102,40 @@ export default function NewLesson() {
       <Loading />
     </div>
   ) : (
-    <div className="user">
-      <div className="userTitleContainer">
-        <h1 className="userTitle">Edit Word</h1>
-        {/* <Link to="/newLesson">
+    <UserContainer>
+      <div className="user">
+        <div className="userTitleContainer">
+          <h1 className="userTitle">Add Lesson</h1>
+          {/* <Link to="/newLesson">
           <button className="userAddButton">Create</button>
         </Link> */}
-      </div>
-      <div className="userContainer">
-        <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
-          <div className="userUpdateForm">
-            <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Title</label>
-                <input
-                  type="text"
-                  value={lesson.title}
-                  className="userUpdateInput"
-                  onChange={(e) =>
-                    setLesson((data) => ({
-                      ...data,
-                      title: e.target.value,
-                    }))
-                  }
-                />
-              </div>
+        </div>
+        <div className="userContainer">
+          <div className="userCreate">
+            <span className="userUpdateTitle">Add</span>
+            <div className="userUpdateForm">
+              <div className="userUpdateLeft">
+                <div className="userUpdateItem">
+                  <label>Title</label>
+                  <Input
+                    type="text"
+                    value={lesson.title}
+                    className="form-input"
+                    placeholder="Please input the lesson title"
+                    onChange={(e) =>
+                      setLesson((data) => ({
+                        ...data,
+                        title: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
 
-              <div className="userUpdateItem">
-                <label>grammars</label>
-                <InputArray array={grammars} setArray={setGrammars} />
-              </div>
-              {/* <div className="userUpdateItem">
+                <div className="userUpdateItem">
+                  <label>Grammar</label>
+                  <InputArray array={grammars} setArray={setGrammars} />
+                </div>
+                {/* <div className="userUpdateItem">
                   <label>English</label>
                   <input
                     type="text"
@@ -145,7 +150,7 @@ export default function NewLesson() {
                     }
                   />
                 </div> */}
-              {/* <div className="userUpdateItem">
+                {/* <div className="userUpdateItem">
                   <label>Sentence</label>
                   <input
                     value={sentence}
@@ -160,7 +165,7 @@ export default function NewLesson() {
                     className="userUpdateInput"
                   />
                 </div> */}
-              {/* <div className="userUpdateItem">
+                {/* <div className="userUpdateItem">
                     <label>Address</label>
                     <input
                       type="text"
@@ -168,26 +173,16 @@ export default function NewLesson() {
                       className="userUpdateInput"
                     />
                   </div> */}
-            </div>
-            <div className="userUpdateRight">
-              <div className="userUpdateUpload">
-                <img
-                  className="userUpdateImg"
-                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                  alt=""
-                />
-                <label htmlFor="file">
-                  <Publish className="userUpdateIcon" />
-                </label>
-                <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="userUpdateButton" onClick={handleCreate}>
-                create
-              </button>
+              <div className="userUpdateRight">
+                <button className="userCreateButton" onClick={handleCreate}>
+                  create
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </UserContainer>
   );
 }

@@ -1,5 +1,6 @@
 import { produce } from "immer";
 import React, { useState } from "react";
+import { Button, Input } from "antd";
 // import { generate } from "shortid";
 
 export const InputArray = ({ array, setArray }) => {
@@ -7,7 +8,7 @@ export const InputArray = ({ array, setArray }) => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <button
+      <Button
         onClick={() => {
           setArray((currentPeople) => [
             ...currentPeople,
@@ -17,13 +18,19 @@ export const InputArray = ({ array, setArray }) => {
             },
           ]);
         }}
+        style={{
+          color: "white",
+          fontFamily: "Helvetica",
+          backgroundColor: "#363537",
+          padding: ".5rem",
+        }}
       >
-        add new grammar url
-      </button>
+        Click here to add Add a grammar url for this lesson
+      </Button>
       {array.map((p, index) => {
         return (
           <div key={`id-${index}`}>
-            <input
+            <Input
               onChange={(e) => {
                 e.preventDefault();
                 const url = e.target.value;
@@ -35,7 +42,14 @@ export const InputArray = ({ array, setArray }) => {
                 );
               }}
               value={p.url}
-              placeholder="grammar url"
+              placeholder="Grammar url"
+              style={{
+                width: "14rem",
+                marginTop: ".8rem",
+                backgroundColor: "#363537",
+                color: "white",
+                padding: "1.5rem",
+              }}
             />
             {/* <input
               onChange={(e) => {
@@ -49,7 +63,8 @@ export const InputArray = ({ array, setArray }) => {
               value={p.lastName}
               placeholder="last name"
             /> */}
-            <button
+            <Button
+              style={{ backgroundColor: "red", color: "white" }}
               onClick={() => {
                 setArray((currentPeople) =>
                   currentPeople.filter((x) => x.id !== p.id)
@@ -57,7 +72,7 @@ export const InputArray = ({ array, setArray }) => {
               }}
             >
               x
-            </button>
+            </Button>
           </div>
         );
       })}

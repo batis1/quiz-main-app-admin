@@ -3,22 +3,36 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "antd";
 import { callAxios, useAxios } from "../../hooks/axiosUtils";
 import apiList from "../../lib/apiList";
+import Loading from "../../components/Loading/Loading";
+import { SetPopupContext } from "../../App";
 export default function QuestionList() {
   const [data, setData] = useState(productRows);
 
   const [questions, setQuestions] = useState([]);
+  const setPopup = useContext(SetPopupContext);
+
   const handleDelete = async (id) => {
-    setQuestions(questions.filter((item) => item.id !== id));
     try {
       await axios.delete(`${apiList.questions}/${id}`);
+      setPopup({
+        open: true,
+        severity: "success",
+        message: `question deleted successfully`,
+      });
+      setQuestions(questions.filter((item) => item.id !== id));
       console.log("question deleted successfully");
     } catch (error) {
       console.log(error);
+      setPopup({
+        open: true,
+        severity: "error",
+        message: `there were an error while deleting the question`,
+      });
     }
   };
 
@@ -27,8 +41,16 @@ export default function QuestionList() {
       id: doc._id,
       ...doc,
     }));
+  const [isLoading, setIsLoading] = useState(false);
 
-  useAxios("get", "questions", setQuestions, setFunctionCallBack);
+  useAxios(
+    "get",
+    "questions",
+    setQuestions,
+    setFunctionCallBack,
+    null,
+    setIsLoading
+  );
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -85,11 +107,24 @@ export default function QuestionList() {
     },
   ];
 
-  return (
+  return isLoading ? (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "30rem",
+        marginRight: "10rem",
+      }}
+    >
+      <Loading />
+    </div>
+  ) : (
     <div className="productList">
       <div className="question-add">
         {/* <h3>Questions</h3> */}
-        <Link to="/newproduct">
+        <Link to="/newquestion">
           <Button className="btn homebtn getstarted">CREATE</Button>
         </Link>
       </div>

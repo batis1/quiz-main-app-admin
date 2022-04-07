@@ -75,7 +75,7 @@ export default function Sidebar(props) {
                   USERS
                 </li>
               </Link>
-              <Link to="/products" className="link">
+              <Link to="/questions" className="link">
                 <li className="sidebarListItem">
                   <QuestionAnswerRounded className="sidebarIcon" />
                   QUESTIONS

@@ -1,10 +1,15 @@
 import "./newQuestion.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AppUpload from "../../upload/AppUpload";
-import { callAxios, useAxios } from "../../hooks/axiosUtils";
+import {
+  callAxios,
+  checkForEmptyInput,
+  useAxios,
+} from "../../hooks/axiosUtils";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
+import { SetPopupContext } from "../../App";
 
 export default function Question({ update }) {
   const categoryQuestionType = {
@@ -36,15 +41,63 @@ export default function Question({ update }) {
   };
   const { questionId } = useParams();
 
+  const setPopup = useContext(SetPopupContext);
+
   const handleSubmit = async (e) => {
+    const [invalid, invalidParams] = checkForEmptyInput(input, [
+      "category",
+      "type",
+      "difficulty",
+      "level",
+      "question",
+      "correct_answer",
+    ]);
+
+    if (invalid) {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: `${invalidParams.join(", ")} ${
+          invalidParams.length > 1 ? "are" : "is"
+        } required`,
+      });
+
+      return;
+    }
+
     e.preventDefault();
     try {
       console.log("here");
-      callAxios("put", `questions/${questionId}`, null, null, {
-        ...input,
-        incorrect_answers: inCorrect,
-      });
+      const { error } = await callAxios(
+        "put",
+        `questions/${questionId}`,
+        null,
+        null,
+        {
+          ...input,
+          incorrect_answers: inCorrect,
+        }
+      );
+
+      if (error) {
+        setPopup({
+          open: true,
+          severity: "error",
+          message: `there were an error while updating the question`,
+        });
+      } else
+        setPopup({
+          open: true,
+          severity: "success",
+          message: `question updated successfully`,
+        });
     } catch (error) {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: `there were an error while updating the question`,
+      });
+
       console.log(error);
     }
   };
@@ -95,8 +148,8 @@ export default function Question({ update }) {
       <Loading />
     </div>
   ) : (
-    <div className="newProduct">
-      <h1 className="addProductTitle">New Question</h1>
+    <div className="newQuestion">
+      <h1 className="addProductTitle">Update Question</h1>
       {input.category === "Writing" ? (
         <form className="addProductForm">
           <div className="addProductItem">
@@ -359,7 +412,7 @@ export default function Question({ update }) {
           <AppUpload setInput={setInput} input={input} />
         </>
       )}
-      <button className="productButton" onClick={handleSubmit}>
+      <button className="userCreateButton" onClick={handleSubmit}>
         Create here
       </button>
     </div>

@@ -6,16 +6,21 @@ import apiList from "../lib/apiList";
 export const checkForEmptyInput = (inputOject, params) => {
   let invalid = false;
 
+  // debugger;
   const invalidParams = [];
   for (let index = 0; index < params.length; index++) {
     const param = params[index];
 
-    if (inputOject[params] === undefined || inputOject[params].length === 0) {
+    if (inputOject[param] === undefined || inputOject[param].length === 0) {
       invalid = true;
-      invalidParams.push(params);
+      invalidParams.push(param);
     }
   }
 
+  if (inputOject?.level === "select level") {
+    invalid = true;
+    invalidParams.push("level");
+  }
   return [invalid, invalidParams];
 };
 
@@ -63,7 +68,7 @@ export const callAxios = async (
 export const handleAxiosError = (error, setPopup) => {
   let messageLocal = "";
 
-  if (error.response.data?.message) {
+  if (error.response?.data?.message) {
     messageLocal = error.response.data?.message;
   } else {
     messageLocal = "something went wrong from the server";

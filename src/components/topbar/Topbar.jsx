@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./topbar.css";
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 import profile from "../../Images/profile.jpg";
 import { Switch } from "antd";
 import { useHistory } from "react-router-dom";
+import { actions, GlobalContext } from "../../App";
 export default function Topbar() {
   const switchTheme = (props) => {
     const newTheme = props.theme === "light" ? "dark" : "light";
     props.setTheme(newTheme);
     // props.setIsThemeChange(true);
   };
+
+  const { _, dispatch } = useContext(GlobalContext);
+
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -25,6 +29,15 @@ export default function Topbar() {
           <div className="topbarIconContainer">
             <Language />
             <span className="topIconBadge">2</span>
+          </div>
+          <div
+            className="topbarIconContainer"
+            onClick={() => {
+              sessionStorage.clear();
+              dispatch({ type: actions.SET_USER, payload: { user: null } });
+            }}
+          >
+            logout
           </div>
           {/* <div className="topbarIconContainer">
             <Settings />

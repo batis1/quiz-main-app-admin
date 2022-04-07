@@ -3,21 +3,36 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 // import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "antd";
 import { callAxios, useAxios } from "../hooks/axiosUtils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Loading from "./Loading/Loading";
+import { SetPopupContext } from "../App";
 
 export default function LessonList() {
   const [lessons, setLessons] = useState([]);
   const [isWordsLoaded, setIsWordsLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const setPopup = useContext(SetPopupContext);
 
   const handleDelete = async (id) => {
     setLessons(lessons.filter((item) => item._id !== id));
-    await callAxios("delete", `lessons/${id}`);
+    const { error } = await callAxios("delete", `lessons/${id}`);
+
+    if (error) {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: `there were an error while deleting the list`,
+      });
+    } else
+      setPopup({
+        open: true,
+        severity: "success",
+        message: `list delete successfully`,
+      });
   };
 
   const setFunctionCallBack = ({ docs }) =>
@@ -104,16 +119,6 @@ export default function LessonList() {
               }`}
             </button>
           </Link>
-          // <span
-          //   style={{ cursor: "pointer" }}
-          //   onClick={() => history.push(`words/${params.row._id}}`)}
-          // >
-          //   {params.row.words.length}
-          //   <span style={{ marginLeft: "10px" }}>
-          //     {"  "}
-          //     {` ${params.row.words.length > 1 ? " words" : " word"}`}
-          //   </span>
-          // </span>
         );
       },
     },
