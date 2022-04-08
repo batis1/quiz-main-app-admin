@@ -29,6 +29,8 @@ import MessagePopup from "./components/MessagePopup";
 import { createContext, useState, useReducer, useEffect } from "react";
 import ScoreList from "./components/ScoreList";
 import Login from "./upload/components/Login/Login";
+import TutorList from "./pages/tutor/TutorList";
+import Tutor from "./pages/user/Tutor";
 export const SetPopupContext = createContext();
 
 export const GlobalContext = createContext();
@@ -134,6 +136,10 @@ function App() {
                 <LessonList />
               </Route>
 
+              <Route path="/tutors">
+                <TutorList />
+              </Route>
+
               <Route path="/words/:lessonId">
                 <WordList />
               </Route>
@@ -148,6 +154,10 @@ function App() {
 
               <Route path="/lesson/:lessonId">
                 <Lesson />
+              </Route>
+
+              <Route path="/Tutor/:tutorId">
+                <Tutor />
               </Route>
               <Route path="/newWord/:lessonId">
                 <NewWord />

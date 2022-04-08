@@ -154,22 +154,6 @@ export default function User() {
                     }
                   />
                 </div>
-                {/* <div className="userUpdateItem">
-                  <label>Phone</label>
-                  <input
-                    type="text"
-                    placeholder="+1 123 456 67"
-                    className="userUpdateInput"
-                  />
-                </div> */}
-                {/* <div className="userUpdateItem">
-                  <label>Address</label>
-                  <input
-                    type="text"
-                    placeholder="New York | USA"
-                    className="userUpdateInput"
-                  />
-                </div> */}
               </div>
               <div className="userUpdateRight">
                 <div className="userUpdateUpload">

@@ -95,10 +95,12 @@ export default function Sidebar(props) {
                 <TranslateRounded className="sidebarIcon" />
                 WORDS
               </li> */}
-              <li className="sidebarListItem">
-                <SchoolRounded className="sidebarIcon" />
-                TUTORS
-              </li>
+              <Link to="/tutors" className="link">
+                <li className="sidebarListItem">
+                  <SchoolRounded className="sidebarIcon" />
+                  TUTORS
+                </li>
+              </Link>
             </ul>
             <div>
               <Switch

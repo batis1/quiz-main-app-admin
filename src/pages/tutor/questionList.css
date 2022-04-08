@@ -1,0 +1,115 @@
+.productList {
+  flex: 4;
+  margin-left: 15px;
+}
+
+.productListItem {
+  display: flex;
+  align-items: center;
+}
+
+.productListImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.productListEdit {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: var(--darkerOrange);
+  color: var(--lightAccent);
+  cursor: pointer;
+  margin-right: 10px;
+  /* margin-left: 10px; */
+}
+.productListCreate {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: rgb(134, 64, 18);
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+  /* margin-left: 10px; */
+}
+.productListDelete {
+  color: red;
+  cursor: pointer;
+}
+
+.productList h3 {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.question-add {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 0.4rem;
+  margin-right: 5.9rem;
+}
+.add-question {
+  background-color: var(--lightAccent);
+  color: var(--darkAccent);
+}
+.homebtn {
+  color: var(--darkAccent);
+  margin-top: 1.25rem;
+  height: 3.75rem;
+  font-size: 1.125rem;
+  font-weight: bold;
+  width: 6.625rem;
+  height: 2.5rem;
+  cursor: pointer;
+  margin-right: 6.625rem;
+}
+.getstarted {
+  background-color: var(--darkerOrange);
+  color: var(--lightAccent);
+}
+
+.data-grid-container {
+  height: 120%;
+  width: 88%;
+  color: white;
+}
+.data-grid-table {
+  margin-right: 2rem;
+  height: 40px;
+  padding: 0 0 2rem 2rem;
+}
+
+.MuiDataGrid-root .MuiDataGrid-cell {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  text-overflow: ellipsis;
+  color: var(--lightAccent);
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeaderWrapper {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  color: var(--lightAccent);
+}
+
+@media (min-width: 390px) {
+  .data-grid-table {
+    margin-right: 2rem;
+    height: 40px;
+  }
+  /* .btn {
+    margin-right: 50px;
+    height: 2rem;
+    weight: 1rem;
+    font-size: 0.9rem;
+  } */
+}

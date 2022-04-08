@@ -10,6 +10,7 @@ const apiList = {
   words: `${server}/words`,
   lessons: `${server}/lessons`,
   upload: `${server}/user/uploadProfileImage`,
+  tutor: `${server}/tutors`,
 };
 
 export default apiList;
