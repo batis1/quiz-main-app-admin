@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "antd";
 import { callAxios, useAxios } from "../../hooks/axiosUtils";
-import apiList from "../../lib/apiList";
+import apiList, { server } from "../../lib/apiList";
 import Loading from "../../components/Loading/Loading";
 import { SetPopupContext } from "../../App";
 
@@ -40,6 +40,7 @@ export default function TutorList() {
   const setFunctionCallBack = ({ docs }) =>
     docs.map((doc, index) => ({
       id: `id-${index}`,
+      ...doc.userId,
       ...doc,
     }));
   const [isLoading, setIsLoading] = useState(false);
@@ -55,6 +56,28 @@ export default function TutorList() {
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
+    {
+      field: "username",
+      headerName: "Tutor Name",
+      width: 120,
+    },
+    {
+      field: "imageUrl",
+      headerName: "Tutor Avatar",
+      width: 120,
+      renderCell: (params) => {
+        return (
+          <div className="userListUser">
+            <img
+              className="userListImg"
+              src={`${server}/${params.row.imageUrl}`}
+              alt=""
+            />
+            {params.row.username}
+          </div>
+        );
+      },
+    },
     {
       field: "hskLevel",
       headerName: "HSK Level",
